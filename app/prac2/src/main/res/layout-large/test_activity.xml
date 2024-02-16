@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3F51B5">
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="305dp"
+        android:layout_height="177dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="667dp"
+        android:background="#FD0D0D"
+        android:text="@string/togglebutton"
+        android:textColor="#000000"
+        android:textOff="@string/toggle_button"
+        android:textOn="@string/toggle_buttonon"
+        android:textSize="100sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switch1"
+        android:layout_width="287dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="115dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="508dp"
+        android:checked="true"
+        android:text="@string/hello_hi"
+        android:textColor="#FFEB3B"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0"
+        app:thumbIconSize="100dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="498dp"
+        android:layout_height="405dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="392dp"
+        android:layout_marginBottom="66dp"
+        android:contentDescription="img"
+        app:layout_constraintBottom_toTopOf="@+id/toggleButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_zhn0mzbk3q" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

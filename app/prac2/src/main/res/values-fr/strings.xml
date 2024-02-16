@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name"><span lang="fr">SolobaïAP</span></string>
+    <string name="message">1 <span lang="fr">pratique</span>\n</string>
+    <string name="myimage"><span lang="fr">Mon image</span></string>
+    <string name="hello_hi"><span lang="fr">Salut, salut</span></string>
+    <string name="togglebutton"><span lang="fr">Bouton bascule</span></string>
+    <string name="toggle_button"><span lang="fr">Éteint</span></string>
+    <string name="toggle_buttonon"><span lang="fr">Allumé</span></string>
+    <string name="Hint"><span lang="fr">Entrez le texte</span></string>
+    <string name="Test"><span lang="fr">Test</span></string>
+    <string name="TestMessage"><span lang="fr">Message de test</span></string>
+</resources>

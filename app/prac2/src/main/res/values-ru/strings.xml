@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name"><span lang="ru">СолобайАП</span></string>
+    <string name="message">1 <span lang="ru">практика</span>\n</string>
+    <string name="myimage"><span lang="ru">Мое изображение</span></string>
+    <string name="hello_hi"><span lang="ru">Привет, привет</span></string>
+    <string name="togglebutton"><span lang="ru">Переключатель</span></string>
+    <string name="toggle_button"><span lang="ru">Выкл</span></string>
+    <string name="toggle_buttonon"><span lang="ru">Вкл</span></string>
+    <string name="Hint"><span lang="ru">Введите текст</span></string>
+    <string name="Test"><span lang="ru">Тест</span></string>
+    <string name="TestMessage"><span lang="ru">Тестовое сообщение</span></string>
+</resources>
