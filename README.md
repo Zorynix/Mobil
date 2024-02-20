@@ -1,5 +1,7 @@
 # Практике по разработке мобильных приложений
 
+![CI](https://github.com/Eckorezze/Mobil/actions/workflows/android.yml/badge.svg)
+
 ## Практики:
 
  - [x] [Практика 1](https://github.com/Eckorezze/Mobil/tree/master/app/prac1)
@@ -18,3 +20,4 @@
  - [ ] [Практика 14](https://github.com/Eckorezze/Mobil/tree/master/app/prac14)
  - [ ] [Практика 15](https://github.com/Eckorezze/Mobil/tree/master/app/prac15)
  - [ ] [Практика 16](https://github.com/Eckorezze/Mobil/tree/master/app/prac16)
+
