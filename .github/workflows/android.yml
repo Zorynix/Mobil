@@ -25,6 +25,15 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Lint
-      run: ./gradlew detekt
+      run: ./gradlew lint
+    - name: upload html lint report
+      uses: actions/upload-artifact@v4.3.1
+      with: 
+          name: lint.html
+          path: app/build/reports/lint-results-debug.html
+          
+
+
+        
  
     
