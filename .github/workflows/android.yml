@@ -31,6 +31,7 @@ jobs:
     needs: [build]
 
     steps:
+      - uses: actions/checkout@v3
       - name: Lint
         run: ./gradlew lint
       - name: upload html lint report
