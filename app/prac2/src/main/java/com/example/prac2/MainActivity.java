@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -37,24 +36,20 @@ public class MainActivity extends AppCompatActivity{
 
        Log.d("On create", "onCreate()");
 
-        btn.setOnClickListener(new View.OnClickListener(){
+        btn.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            onSaveInstanceState(new Bundle());
 
-                onSaveInstanceState(new Bundle());
+            String userInput = editText.getText().toString();
 
-                String userInput = editText.getText().toString();
+            // Создаем явное намерение
+            Intent intent = new Intent(MainActivity.this, TestActivity.class);
+            intent.putExtra(KEY, android);
 
-                // Создаем явное намерение
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                intent.putExtra(KEY, android);
+            // Запуск другой активности
+            startActivity(intent);
+            //finish();
 
-                // Запуск другой активности
-                startActivity(intent);
-                //finish();
-
-            }
         });
 
     }

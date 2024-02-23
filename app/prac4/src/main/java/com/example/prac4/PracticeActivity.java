@@ -1,17 +1,20 @@
 package com.example.prac4;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,8 +24,7 @@ import com.example.prac4.databinding.PracticeActivityBinding;
 
 public class PracticeActivity extends AppCompatActivity {
 
-    private  PracticeActivityBinding binding;
-
+    private PracticeActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,6 @@ public class PracticeActivity extends AppCompatActivity {
             Intent intent = new Intent(PracticeActivity.this, MainActivity.class);
             startActivity(intent);
         });
-
 //        RelativeLayout relativeLayout = new RelativeLayout(this);
 //        RelativeLayout.LayoutParams textView = new
 //                RelativeLayout.LayoutParams(
@@ -97,7 +98,6 @@ public class PracticeActivity extends AppCompatActivity {
 //        frameLayout.addView(textView1);
 
 
-
 //        TextView textView2 = new TextView(this);
 //        textView2.setText("Практика 5");
 //       //textView2.setLayoutParams(textView);
@@ -147,7 +147,25 @@ public class PracticeActivity extends AppCompatActivity {
 //        gridLayout.addView(btn, layoutParams);
         //setContentView(frameLayout);
         //setContentView(gridLayout);
-        setContentView(view);
 
+//        ScrollView scrollView = new ScrollView(this);
+//        TextView textView = new TextView(this);
+//        textView.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac diam blandit sem laoreet blandit id eget leo. Nam blandit tellus eget tempor eleifend. Phasellus id varius ipsum, ac sagittis risus. Morbi dignissim mollis ligula eget rhoncus. Maecenas bibendum turpis erat, non sollicitudin enim faucibus nec. Duis volutpat felis et enim ornare, eu pretium urna efficitur. Nulla facilisi. Quisque elementum faucibus ullamcorper. Vivamus blandit, magna et sodales tempor, quam turpis sollicitudin mauris, eu sollicitudin magna nibh eget tellus. Vivamus sit amet eleifend odio.\n" +
+//                "\n" +
+//                "Fusce tincidunt posuere nisl hendrerit mollis. Cras rutrum congue nunc a gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam non hendrerit enim. Nullam mi lectus, posuere eu rutrum ac, vehicula vitae magna. Sed ut augue sed est faucibus lobortis in non nisi. Phasellus aliquet turpis vitae faucibus consectetur.\n" +
+//                "\n" +
+//                "Vestibulum ante nisi, molestie sed bibendum sit amet, egestas faucibus ipsum. Integer non congue nulla, sed congue metus. Pellentesque hendrerit ex et ligula accumsan, et suscipit magna pharetra. Quisque fermentum lorem ac consectetur lobortis. Aenean volutpat lorem non lacus pulvinar, in commodo ipsum dignissim. Etiam mollis lacus quis dignissim dignissim. Nulla in consequat libero. Integer sem mauris, ullamcorper eget consequat id, laoreet vel nisl. Etiam gravida sollicitudin bibendum. Cras bibendum purus nibh, et luctus erat aliquet nec. Ut sit amet neque vel velit vulputate porta id ac erat. Aenean lorem enim, condimentum ut justo eget, sollicitudin efficitur nisl. Ut molestie, lorem vitae tempor condimentum, nisi sem tristique libero, non porta lectus eros a felis. Sed sit amet elit velit. Integer vulputate commodo sapien, eu dignissim magna sollicitudin in.\n" +
+//                "\n" +
+//                "In sollicitudin lacinia luctus. Sed et ipsum ullamcorper, tristique odio eget, dictum augue. Mauris at hendrerit odio. Nullam magna odio, lobortis sit amet efficitur at, luctus sed diam. Nunc volutpat placerat elit quis lacinia. Sed non pharetra ex. Nunc mattis, neque nec finibus aliquam, sem metus finibus nibh, sed finibus ipsum lectus eu libero. Suspendisse potenti. Morbi dignissim vehicula nisi vitae consectetur. Phasellus suscipit enim vitae erat maximus, non eleifend diam ullamcorper. Phasellus orci ante, vestibulum a odio id, bibendum iaculis mi. Maecenas sagittis ac enim et bibendum.\n" +
+//                "\n" +
+//                "Vivamus rhoncus, enim accumsan faucibus gravida, elit elit pulvinar enim, eleifend aliquam lectus erat vel lacus. Nulla sit amet scelerisque quam. Quisque mollis mauris at diam auctor vestibulum et et quam. Nullam fermentum dui facilisis efficitur egestas. Maecenas ac arcu tincidunt, fermentum purus non, euismod dolor. Aliquam erat volutpat. Phasellus aliquam purus massa, in cursus lacus sollicitudin a. Ut eget lectus nulla.");
+//        textView.setLayoutParams(new ViewGroup.LayoutParams
+//                (ViewGroup.LayoutParams.WRAP_CONTENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT));
+//        textView.setTextSize(26);
+//        scrollView.addView(textView);
+        //setContentView(view);
+        //setContentView(scrollView);
+        setContentView(view);
     }
 }

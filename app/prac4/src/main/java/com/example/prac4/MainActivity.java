@@ -13,6 +13,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // неявное намерение
+        // Intent intent = new Intent(Intent.ACTION_VIEW);
+        // String str = "https://mirea.ru";
+        //  intent.setData(Uri.parse(str));
+        //  startActivity(intent);
+
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -26,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
             // Запуск другой активности
             startActivity(intent);
 
+
+
         });
-
-
     }
 }
