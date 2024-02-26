@@ -9,6 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileDev">
         <activity
+            android:name=".PracticeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
