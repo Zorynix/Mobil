@@ -2,7 +2,6 @@ package com.example.prac6;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -35,21 +34,6 @@ public class PracticeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-//        String pracs = getResources().getQuantityString(R.plurals.practics, 21, 21);
-//
-//        TextView textView2 = new TextView(this);
-//
-//        textView2.setText(pracs);
-//        textView2.setTextSize(26);
-
-
-//        Calendar calendar = Calendar.getInstance();
-//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int minute = calendar.get(Calendar.MINUTE);
-//        String text = getString(R.string.welcome, hour, minute);
-//        TextView textView = new TextView(this);
-//        textView.setText(text);
-//        textView.setTextSize(28);
 
         Resources res = getResources();
         String[] languages = res.getStringArray(R.array.languages);

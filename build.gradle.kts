@@ -2,6 +2,7 @@
 plugins {
     id("com.android.application") version "8.2.2" apply false
     id("io.gitlab.arturbosch.detekt") version("1.23.3")
+    id("com.android.library") version "8.2.2" apply false
 }
 
 detekt {
