@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SolobayAP</string>
+    <string name="myimage">My image</string>
+    <string name="Switch">Switch</string>
+    <string name="Hint">Input text</string>
+    <string name="Next">Далее</string>
+    <string name="Back">Назад</string>
+    <string name="Main">Главная</string>
+    <string name="prac6">Практика №6</string>
+
+    <string name="welcome">Добро пожаловать! Время %1$d:%2$d</string>
+</resources>

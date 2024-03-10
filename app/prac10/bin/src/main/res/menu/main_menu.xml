@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_settings"
+            android:title="Настройки"
+            android:checked="true" />
+        <item android:id="@+id/save_settings"
+            android:title="Сохранить" />
+        <item android:id="@+id/open_settings"
+            android:title="Открыть" />
+    </group>
+</menu>

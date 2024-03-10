@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SolobayAP</string>
+    <string name="message">1 <span lang="es">práctica</span>\n</string>
+    <string name="myimage"><span lang="es">Mi imagen</span></string>
+    <string name="hello_hi"><span lang="es">Hola, hola</span></string>
+    <string name="togglebutton"><span lang="es">Botón de alternancia</span></string>
+    <string name="toggle_button"><span lang="es">Apagado</span></string>
+    <string name="toggle_buttonon"><span lang="es">Encendido</span></string>
+    <string name="Hint"><span lang="es">Introduzca el texto</span></string>
+    <string name="Test"><span lang="es">Test</span></string>
+    <string name="TestMessage"><span lang="es">Mensaje de prueba</span></string>
+</resources>

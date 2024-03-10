@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="practics">
+        <item quantity="one">%d практика</item>
+        <item quantity="few">%d практики</item>
+        <item quantity="many">%d практик</item>
+        <item quantity="other">%d практика</item>
+    </plurals>
+</resources>

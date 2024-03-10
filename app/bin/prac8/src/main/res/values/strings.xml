@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SolobayAP</string>
+    <string name="myimage">My image</string>
+    <string name="hello_hi">Switch</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="toggle_button">Off</string>
+    <string name="toggle_buttonon">On</string>
+    <string name="Hint">Input text</string>
+    <string name="TestMessage">Тest message</string>
+    <string name="Test">Далее</string>
+    <string name="hello_from_fragment">Hello from Fragment</string>
+    <string name="refresh">Обновить</string>
+</resources>

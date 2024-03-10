@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SolobayAP</string>
+    <string name="message">1 practice\n</string>
+    <string name="myimage">My image</string>
+    <string name="hello_hi">Switch</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="toggle_button">Off</string>
+    <string name="toggle_buttonon">On</string>
+    <string name="Hint">Input text</string>
+    <string name="Test">Next</string>
+    <string name="TestMessage">Тest message</string>
+    <string name="name">Название</string>
+    <string name="stol">Столица</string>
+    <string name="todo">TODO</string>
+</resources>

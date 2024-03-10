@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9FA8DA"
+    android:padding="16dp">
+
+<!--    <include-->
+<!--        android:id="@+id/button"-->
+<!--        layout="@layout/button_panel"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        />-->
+
+<!--    <ListView-->
+<!--        android:id="@+id/productList"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <ListView-->
+<!--        android:id="@+id/countriesList"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    <EditText-->
+<!--        android:id="@+id/userName"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintHorizontal_weight="4"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toLeftOf="@+id/add"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+<!--    <Button-->
+<!--        android:id="@+id/add"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintHorizontal_weight="1"-->
+<!--        android:text="+"-->
+<!--        android:onClick="add"-->
+<!--        app:layout_constraintRight_toLeftOf="@+id/remove"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/userName"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/remove"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintHorizontal_weight="1"-->
+<!--        android:text="-"-->
+<!--        android:onClick="remove"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/add"-->
+<!--        app:layout_constraintRight_toRightOf="parent" />-->
+<!--    <ListView-->
+<!--        android:id="@+id/usersList"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:choiceMode="multipleChoice"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/userName"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent">-->
+<!--    </ListView>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!--    <GridView-->
+<!--        android:id="@+id/gridview"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:numColumns="2"-->
+<!--        android:verticalSpacing="16dp"-->
+<!--        android:horizontalSpacing="16dp"-->
+<!--        android:stretchMode="columnWidth"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/selection"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="26sp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+<!--    </TextView>-->
+
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/selection" />-->
+
+<!--    <MultiAutoCompleteTextView-->
+<!--        android:id="@+id/autocomplete"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:completionHint="Введите город"-->
+<!--        android:completionThreshold="1"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        />-->
+
+    <!--    <Button-->
+<!--        android:id="@+id/toggleButton2"-->
+<!--        style="@style/Widget.Material3.Button.ElevatedButton.Icon"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="80dp"-->
+<!--        android:layout_marginTop="592dp"-->
+<!--        android:layout_marginEnd="75dp"-->
+<!--        android:text="Главная"-->
+<!--        app:icon="@drawable/home"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="HardcodedText" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/toggleButton"-->
+<!--        style="@style/Widget.Material3.Button.TonalButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="80dp"-->
+<!--        android:layout_marginTop="592dp"-->
+<!--        android:layout_marginEnd="75dp"-->
+<!--        android:text="Назад"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="HardcodedText" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
