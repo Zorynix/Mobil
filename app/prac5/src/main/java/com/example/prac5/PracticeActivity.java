@@ -56,20 +56,20 @@ public class PracticeActivity extends AppCompatActivity {
 
         setContentView(view);
 
-        TextView selection = findViewById(R.id.selection);
-        CheckBox enableBox = findViewById(R.id.enabled);
-        enableBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked) {
-                selection.setText("Включено");
-                buttonView.setText("Выключить");
-            }
-            else {
-                selection.setText("Выключено");
-                buttonView.setText("Включить");
-            }
-        });
-    }
+//        TextView selection = findViewById(R.id.selection);
+//        CheckBox enableBox = findViewById(R.id.enabled);
+//        enableBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if(isChecked) {
+//                selection.setText("Включено");
+//                buttonView.setText("Выключить");
+//            }
+//            else {
+//                selection.setText("Выключено");
+//                buttonView.setText("Включить");
+//            }
+        };
 }
+
 
 
 
