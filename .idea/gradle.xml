@@ -10,8 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/app/coursach" />
-            <option value="$PROJECT_DIR$/app/coursach/ui" />
             <option value="$PROJECT_DIR$/app/prac1" />
             <option value="$PROJECT_DIR$/app/prac10" />
             <option value="$PROJECT_DIR$/app/prac11" />
@@ -28,7 +26,6 @@
             <option value="$PROJECT_DIR$/app/prac7" />
             <option value="$PROJECT_DIR$/app/prac8" />
             <option value="$PROJECT_DIR$/app/prac9" />
-            <option value="$PROJECT_DIR$/app/ui" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
