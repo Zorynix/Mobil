@@ -5,7 +5,8 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="gradleHome" value="C:/Gradle/gradle-8.6" />
+        <option name="gradleJvm" value="openjdk-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -15,10 +16,6 @@
             <option value="$PROJECT_DIR$/app/prac10" />
             <option value="$PROJECT_DIR$/app/prac11" />
             <option value="$PROJECT_DIR$/app/prac12" />
-            <option value="$PROJECT_DIR$/app/prac13" />
-            <option value="$PROJECT_DIR$/app/prac14" />
-            <option value="$PROJECT_DIR$/app/prac15" />
-            <option value="$PROJECT_DIR$/app/prac16" />
             <option value="$PROJECT_DIR$/app/prac2" />
             <option value="$PROJECT_DIR$/app/prac3" />
             <option value="$PROJECT_DIR$/app/prac4" />

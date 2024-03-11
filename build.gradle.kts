@@ -20,11 +20,7 @@ detekt {
             "app/prac9/src/main/java",
             "app/prac10/src/main/java",
             "app/prac11/src/main/java",
-            "app/prac12/src/main/java",
-            "app/prac13/src/main/java",
-            "app/prac14/src/main/java",
-            "app/prac15/src/main/java",
-            "app/prac16/src/main/java")
+            "app/prac12/src/main/java", )
     allRules=true
 }
 
