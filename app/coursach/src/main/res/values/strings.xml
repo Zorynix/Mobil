@@ -1,4 +1,11 @@
 <resources>
-    <string name="rate" translatable="false">Оценить</string>
-    <string name="app_name" translatable="false">myapp</string>
+    <string name="app_name">My Application</string>
+    <string name="intro">Ваша персональная медиатека прямо в кармане</string>
+    <string name="get_start">Get start</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="login">Авторизоваться</string>
+    <string name="noacc">У вас нет аккаунта?</string>
+    <string name="reg">Зарегистрируйтесь сейчас</string>
+    <string name="auth">Авторизация</string>
 </resources>
