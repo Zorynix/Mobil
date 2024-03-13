@@ -16,8 +16,4 @@
  - [x] [Практика 10](https://github.com/Eckorezze/Mobil/tree/master/app/prac10) 
  - [x] [Практика 11](https://github.com/Eckorezze/Mobil/tree/master/app/prac11)
  - [x] [Практика 12](https://github.com/Eckorezze/Mobil/tree/master/app/prac12)
- - [ ] [Практика 13](https://github.com/Eckorezze/Mobil/tree/master/app/prac13)
- - [ ] [Практика 14](https://github.com/Eckorezze/Mobil/tree/master/app/prac14)
- - [ ] [Практика 15](https://github.com/Eckorezze/Mobil/tree/master/app/prac15)
- - [ ] [Практика 16](https://github.com/Eckorezze/Mobil/tree/master/app/prac16)
 
