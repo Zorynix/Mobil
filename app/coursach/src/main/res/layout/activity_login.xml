@@ -24,15 +24,16 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="match_parent"
+                android:layout_width="342dp"
                 android:layout_height="wrap_content"
-                android:text="@string/auth"
-                android:textColor="@color/white"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="128dp"
+                android:text="@string/auth"
+                android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="50sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/editTextUsername"
                 android:layout_width="match_parent"
