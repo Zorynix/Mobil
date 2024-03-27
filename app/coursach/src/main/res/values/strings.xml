@@ -23,4 +23,6 @@
     <string name="test">test</string>
     <string name="actors">Actors</string>
     <string name="title">title</string>
+    <string name="score">score</string>
+    <string name="title2">title</string>
 </resources>
