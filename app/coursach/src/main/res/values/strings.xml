@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">MovieApp</string>
     <string name="intro">Ваша персональная медиатека прямо в кармане</string>
     <string name="get_start">Get start</string>
     <string name="username">Имя пользователя</string>
@@ -25,4 +25,8 @@
     <string name="title">title</string>
     <string name="score">score</string>
     <string name="title2">title</string>
+    <string name="register">Регистрация</string>
+    <string name="mail">Почта</string>
+    <string name="reg_in">Зарегестрироваться</string>
+    <string name="remember_me">Запомнить меня</string>
 </resources>

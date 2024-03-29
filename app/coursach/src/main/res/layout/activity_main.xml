@@ -209,7 +209,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/btn_3"
+                    app:srcCompat="@drawable/ic__round_remove_red_eye"
                     app:tint="@color/white"
                     tools:layout_weight="0.2"
                     android:contentDescription="@string/mr" />

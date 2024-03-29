@@ -8,7 +8,8 @@
     android:background="@color/main_background"
     tools:context=".Activity.DetailActivity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ScrollViewDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_background"
@@ -45,10 +46,10 @@
                     android:id="@+id/posterNormalImg"
                     android:layout_width="210dp"
                     android:layout_height="300dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/posterBigImg"
                     app:shapeAppearanceOverlay="@style/roundedImageRounded" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -63,7 +64,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/backImg"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:background="@drawable/bg_cirlcle_dark"
@@ -220,9 +221,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagesRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movieActorInfo"
@@ -230,7 +234,7 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/detailLoading"
