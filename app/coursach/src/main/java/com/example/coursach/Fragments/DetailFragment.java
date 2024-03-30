@@ -73,8 +73,6 @@ public class DetailFragment extends Fragment {
             return insets;
         });
 
-
-
         return view;
     }
 
