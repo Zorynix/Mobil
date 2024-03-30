@@ -1,5 +1,7 @@
 package com.example.coursach.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +40,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+
+import java.util.Objects;
 
 
 public class DetailFragment extends Fragment {
@@ -78,7 +82,8 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        favoriteImg.setOnClickListener(v -> addToFavorites(currentFilm));
+        favoriteImg.setOnClickListener(v -> toggleFavorite(currentFilm));
+        checkFavoriteStatus();
     }
 
     private void initView(View view) {
@@ -102,31 +107,46 @@ public class DetailFragment extends Fragment {
         });
     }
 
-    private void addToFavorites(FilmItem film) {
+    private void toggleFavorite(FilmItem film) {
         if (film == null) {
-            Toast.makeText(getContext(), "Информация о фильме недоступна. Не удается добавить в избранное.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Информация о фильме недоступна.", Toast.LENGTH_LONG).show();
             return;
         }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Log.d("Authentication", "Пользователь в системе: " + user.getEmail());
-        } else {
+        if (user == null) {
             Log.d("Authentication", "Пользователь не аутентифицирован");
             return;
         }
 
         String userId = user.getUid();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance(getResources().getString(R.string.url)).getReference();
-        mDatabase.child("users").child(userId).child("favorites").child(String.valueOf(film.getId())).setValue(film)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
-                    updateFavoriteButtonBackground(true);
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Не удалось добавить в избранное", Toast.LENGTH_SHORT).show();
-                });
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance(getResources().getString(R.string.url)).getReference().child("users").child(userId).child("favorites").child(String.valueOf(film.getId()));
+        SharedPreferences prefs = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE);
+        boolean isCurrentlyFavorite = prefs.getBoolean("Film_" + film.getId(), false);
+
+        if (isCurrentlyFavorite) {
+            mDatabase.removeValue().addOnSuccessListener(aVoid -> {
+                Toast.makeText(getContext(), "Удалено из избранного", Toast.LENGTH_SHORT).show();
+                saveFavoriteStatus(film.getId(), false);
+                updateFavoriteButtonBackground(false);
+            }).addOnFailureListener(e -> Toast.makeText(getContext(), "Ошибка при удалении из избранного", Toast.LENGTH_SHORT).show());
+        } else {
+            mDatabase.setValue(film).addOnSuccessListener(aVoid -> {
+                Toast.makeText(getContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                saveFavoriteStatus(film.getId(), true);
+                updateFavoriteButtonBackground(true);
+            }).addOnFailureListener(e -> Toast.makeText(getContext(), "Не удалось добавить в избранное", Toast.LENGTH_SHORT).show());
+        }
     }
+
+
+    private void saveFavoriteStatus(int filmId, boolean isFavorite) {
+        SharedPreferences prefs = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("Film_" + filmId, isFavorite);
+        editor.apply();
+    }
+
 
     private void updateFavoriteButtonBackground(boolean isFavorite) {
         if (isFavorite) {
@@ -136,6 +156,11 @@ public class DetailFragment extends Fragment {
         }
     }
 
+    private void checkFavoriteStatus() {
+        SharedPreferences prefs = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE);
+        boolean isFavorite = prefs.getBoolean("Film_" + idFilm, false);
+        updateFavoriteButtonBackground(isFavorite);
+    }
 
     private void sendRequest() {
         RequestQueue mRequestQueue = Volley.newRequestQueue(requireContext());
