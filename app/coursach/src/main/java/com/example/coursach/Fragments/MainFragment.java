@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
@@ -60,8 +62,9 @@ public class MainFragment extends Fragment {
             loading1.setVisibility(View.GONE);
 
             ListFilm items = gson.fromJson(response, ListFilm.class);
-            adapterNewMovies = new FilmListAdapter(items);
-            recyclerViewNewMovies.setAdapter(adapterNewMovies);
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            FilmListAdapter adapter = new FilmListAdapter(items, navController);
+            recyclerViewNewMovies.setAdapter(adapter);
         }, error -> loading1.setVisibility(View.GONE));
         mRequestQueue.add(mStringRequest);
     }
@@ -74,8 +77,9 @@ public class MainFragment extends Fragment {
             loading2.setVisibility(View.GONE);
 
             ListFilm items = gson.fromJson(response, ListFilm.class);
-            adapterUpComing = new FilmListAdapter(items);
-            recyclerViewUpComing.setAdapter(adapterUpComing);
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            FilmListAdapter adapter = new FilmListAdapter(items, navController);
+            recyclerViewUpComing.setAdapter(adapter);
         }, error -> loading2.setVisibility(View.GONE));
         mRequestQueue.add(mStringRequest2);
     }

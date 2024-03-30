@@ -1,18 +1,19 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="intro">Ваша персональная медиатека прямо в кармане</string>
-    <string name="get_start">Get start</string>
+    <string name="get_start">Начать</string>
     <string name="username">Имя пользователя</string>
     <string name="password">Пароль</string>
     <string name="login">Авторизоваться</string>
     <string name="noacc">У вас нет аккаунта?</string>
     <string name="reg">Зарегистрируйтесь сейчас</string>
     <string name="auth">Авторизация</string>
-    <string name="what_would_you_like_to_watch">What would you like to watch?</string>
-    <string name="search_movies">Search Movies...</string>
-    <string name="new_movies">New Movies</string>
-    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="what_would_you_like_to_watch">Что вы хотите посмотреть?</string>
+    <string name="search_movies">Поиск фильма...</string>
+    <string name="new_movies">Лучшие фильмы</string>
+    <string name="upcoming_movies">Популярные фильмы</string>
     <string name="home">Home</string>
+    <string name="url">https://coursach-3342d-default-rtdb.europe-west1.firebasedatabase.app</string>
     <string name="profile">Profile</string>
     <string name="mr">mr</string>
     <string name="todo">TODO</string>

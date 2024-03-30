@@ -31,15 +31,21 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        initView(view);
 
         mAuth = FirebaseAuth.getInstance();
         sharedPreferences = requireActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
 
-        initView(view);
-        checkLogin();
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        checkLogin();
     }
 
     private void checkLogin() {
@@ -73,7 +79,6 @@ public class LoginFragment extends Fragment {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putBoolean("isLoggedIn", rememberMeChk.isChecked());
                                     editor.apply();
-
                                     Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
                                 } else {
                                     Toast.makeText(getActivity(), "Пожалуйста, подтвердите ваш email перед входом в приложение", Toast.LENGTH_LONG).show();

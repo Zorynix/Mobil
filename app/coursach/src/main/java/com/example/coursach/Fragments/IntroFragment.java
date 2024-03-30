@@ -1,6 +1,5 @@
 package com.example.coursach.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.coursach.R;
-import com.example.coursach.Activity.LoginActivity;
 
 public class IntroFragment extends Fragment {
 

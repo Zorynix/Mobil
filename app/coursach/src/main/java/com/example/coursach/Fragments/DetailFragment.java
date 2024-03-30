@@ -1,12 +1,14 @@
 package com.example.coursach.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +30,13 @@ import com.example.coursach.Adapter.ImageListAdapter;
 import com.example.coursach.Domain.FilmItem;
 import com.example.coursach.R;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 
@@ -38,8 +47,9 @@ public class DetailFragment extends Fragment {
     private NestedScrollView scrollView;
     private int idFilm;
     private ShapeableImageView pic1;
-    private ImageView pic2;
+    private ImageView pic2, favoriteImg;
     private RecyclerView recyclerView;
+    private FilmItem currentFilm;
 
     @Nullable
     @Override
@@ -59,7 +69,16 @@ public class DetailFragment extends Fragment {
             return insets;
         });
 
+
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        favoriteImg.setOnClickListener(v -> addToFavorites(currentFilm));
     }
 
     private void initView(View view) {
@@ -75,12 +94,48 @@ public class DetailFragment extends Fragment {
         movieActorsInfo = view.findViewById(R.id.movieActorInfo);
         ImageView backImg = view.findViewById(R.id.backImg);
         recyclerView = view.findViewById(R.id.imagesRecyclerView);
+        favoriteImg = view.findViewById(R.id.favorite);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         backImg.setOnClickListener(v -> {
             Navigation.findNavController(v).navigateUp();
         });
     }
+
+    private void addToFavorites(FilmItem film) {
+        if (film == null) {
+            Toast.makeText(getContext(), "Информация о фильме недоступна. Не удается добавить в избранное.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Log.d("Authentication", "Пользователь в системе: " + user.getEmail());
+        } else {
+            Log.d("Authentication", "Пользователь не аутентифицирован");
+            return;
+        }
+
+        String userId = user.getUid();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance(getResources().getString(R.string.url)).getReference();
+        mDatabase.child("users").child(userId).child("favorites").child(String.valueOf(film.getId())).setValue(film)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                    updateFavoriteButtonBackground(true);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Не удалось добавить в избранное", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void updateFavoriteButtonBackground(boolean isFavorite) {
+        if (isFavorite) {
+            favoriteImg.setBackgroundResource(R.drawable.bg_circle_pink);
+        } else {
+            favoriteImg.setBackgroundResource(R.drawable.bg_cirlcle_dark);
+        }
+    }
+
 
     private void sendRequest() {
         RequestQueue mRequestQueue = Volley.newRequestQueue(requireContext());
@@ -93,28 +148,35 @@ public class DetailFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
             scrollView.setVisibility(View.VISIBLE);
 
-            FilmItem item = gson.fromJson(response, FilmItem.class);
+            currentFilm = gson.fromJson(response, FilmItem.class);
 
-            Glide.with(this)
-                    .load(item.getPoster())
-                    .into(pic1);
+            if (currentFilm != null) {
+                Glide.with(this)
+                        .load(currentFilm.getPoster())
+                        .into(pic1);
 
-            Glide.with(this)
-                    .load(item.getPoster())
-                    .into(pic2);
+                Glide.with(this)
+                        .load(currentFilm.getPoster())
+                        .into(pic2);
 
-            titleTxt.setText(item.getTitle());
-            movieRateTxt.setText(item.getImdbRating());
-            movieTimeTxt.setText(item.getRuntime());
-            movieDateTxt.setText(item.getReleased());
-            movieSummaryInfo.setText(item.getPlot());
-            movieActorsInfo.setText(item.getActors());
+                titleTxt.setText(currentFilm.getTitle());
+                movieRateTxt.setText(currentFilm.getImdbRating());
+                movieTimeTxt.setText(currentFilm.getRuntime());
+                movieDateTxt.setText(currentFilm.getReleased());
+                movieSummaryInfo.setText(currentFilm.getPlot());
+                movieActorsInfo.setText(currentFilm.getActors());
 
-            if (item.getImages() != null) {
-                ImageListAdapter adapterImgList = new ImageListAdapter(item.getImages());
-                recyclerView.setAdapter(adapterImgList);
+                if (currentFilm.getImages() != null) {
+                    ImageListAdapter adapterImgList = new ImageListAdapter(currentFilm.getImages());
+                    recyclerView.setAdapter(adapterImgList);
+                }
+            } else {
+                Toast.makeText(getContext(), "Ошибка при загрузке информации о фильме.", Toast.LENGTH_LONG).show();
             }
-        }, error -> progressBar.setVisibility(View.GONE));
+        }, error -> {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "Ошибка при извлечении данных о фильме.", Toast.LENGTH_LONG).show();
+        });
 
         mRequestQueue.add(mStringRequest);
     }

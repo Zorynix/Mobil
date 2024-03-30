@@ -1,7 +1,8 @@
 package com.example.coursach.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import com.example.coursach.Activity.DetailActivity;
 import com.example.coursach.Domain.ListFilm;
-import com.example.coursach.Domain.FilmItem;
+
 import com.example.coursach.R;
 
 import org.w3c.dom.Text;
@@ -25,8 +26,11 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
     ListFilm items;
     Context context;
 
-    public FilmListAdapter(ListFilm items) {
+    NavController navController;
+
+    public FilmListAdapter(ListFilm items, NavController navController) {
         this.items = items;
+        this.navController = navController;
     }
 
     @NonNull
@@ -39,6 +43,7 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         return new ViewHolder(inflate);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull FilmListAdapter.ViewHolder holder, int position) {
         holder.titleTxt.setText(items.getData().get(position).getTitle());
@@ -49,9 +54,9 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
                 .into(holder.pic);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
-            intent.putExtra("id", items.getData().get(position).getId());
-            holder.itemView.getContext().startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", items.getData().get(position).getId());
+            navController.navigate(R.id.action_mainFragment_to_detailFragment, bundle);
         });
     }
 
