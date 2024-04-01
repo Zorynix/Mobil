@@ -39,7 +39,6 @@
                 android:layout_margin="16dp"
                 android:background="@drawable/search_edt_background"
                 android:drawableStart="@drawable/search"
-                android:drawableEnd="@drawable/microphone"
                 android:drawablePadding="8dp"
                 android:ems="10"
                 android:hint="@string/search_movies"
