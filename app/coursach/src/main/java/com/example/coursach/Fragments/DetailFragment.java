@@ -1,5 +1,6 @@
 package com.example.coursach.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,16 +33,13 @@ import com.example.coursach.Adapter.ImageListAdapter;
 import com.example.coursach.Domain.FilmItem;
 import com.example.coursach.R;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import java.util.Objects;
 
 
 public class DetailFragment extends Fragment {
@@ -84,6 +82,22 @@ public class DetailFragment extends Fragment {
         checkFavoriteStatus();
     }
 
+    private void showCustomSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
+        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View customView = inflater.inflate(R.layout.custom_snackbar, null);
+
+        TextView textView = customView.findViewById(R.id.snackbar_text);
+        textView.setText(message);
+
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(customView, 0);
+
+        snackbar.show();
+    }
+
     private void initView(View view) {
         titleTxt = view.findViewById(R.id.movieNameTxt);
         progressBar = view.findViewById(R.id.detailLoading);
@@ -107,13 +121,13 @@ public class DetailFragment extends Fragment {
 
     private void toggleFavorite(FilmItem film) {
         if (film == null) {
-            Toast.makeText(getContext(), "Информация о фильме недоступна.", Toast.LENGTH_LONG).show();
+            showCustomSnackbar("Информация о фильме недоступна!");
             return;
         }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            Log.d("Authentication", "Пользователь не аутентифицирован");
+            Log.d("Authentication", "Пользователь не аутентифицирован.");
             return;
         }
 
@@ -124,16 +138,16 @@ public class DetailFragment extends Fragment {
 
         if (isCurrentlyFavorite) {
             mDatabase.removeValue().addOnSuccessListener(aVoid -> {
-                Toast.makeText(getContext(), "Удалено из избранного", Toast.LENGTH_SHORT).show();
+                showCustomSnackbar("Удалено из избранного.");
                 saveFavoriteStatus(film.getId(), false);
                 updateFavoriteButtonBackground(false);
-            }).addOnFailureListener(e -> Toast.makeText(getContext(), "Ошибка при удалении из избранного", Toast.LENGTH_SHORT).show());
+            }).addOnFailureListener(e -> showCustomSnackbar("Ошибка при удалении из избранного."));
         } else {
             mDatabase.setValue(film).addOnSuccessListener(aVoid -> {
-                Toast.makeText(getContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                showCustomSnackbar("Добавлено в избранное.");
                 saveFavoriteStatus(film.getId(), true);
                 updateFavoriteButtonBackground(true);
-            }).addOnFailureListener(e -> Toast.makeText(getContext(), "Не удалось добавить в избранное", Toast.LENGTH_SHORT).show());
+            }).addOnFailureListener(e -> showCustomSnackbar("Не удалось добавить в избранное."));
         }
     }
 
@@ -194,11 +208,11 @@ public class DetailFragment extends Fragment {
                     recyclerView.setAdapter(adapterImgList);
                 }
             } else {
-                Toast.makeText(getContext(), "Ошибка при загрузке информации о фильме.", Toast.LENGTH_LONG).show();
+                showCustomSnackbar("Ошибка при загрузке информации о фильме!");
             }
         }, error -> {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "Ошибка при извлечении данных о фильме.", Toast.LENGTH_LONG).show();
+            showCustomSnackbar("Ошибка при извлечении данных о фильме!");
         });
 
         mRequestQueue.add(mStringRequest);

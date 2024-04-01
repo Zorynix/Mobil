@@ -1,5 +1,6 @@
 package com.example.coursach.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,13 +11,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.example.coursach.R;
@@ -27,6 +28,23 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
     private CheckBox rememberMeChk;
+
+
+    private void showCustomSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
+        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View customView = inflater.inflate(R.layout.custom_snackbar, null);
+
+        TextView textView = customView.findViewById(R.id.snackbar_text);
+        textView.setText(message);
+
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(customView, 0);
+
+        snackbar.show();
+    }
 
     @Nullable
     @Override
@@ -69,7 +87,7 @@ public class LoginFragment extends Fragment {
             String password = passEdt.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(getActivity(), "Пожалуйста, введите ваш логин и пароль", Toast.LENGTH_SHORT).show();
+                showCustomSnackbar("Пожалуйста, введите ваш логин и пароль.");
             } else {
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity(), task -> {
@@ -81,10 +99,10 @@ public class LoginFragment extends Fragment {
                                     editor.apply();
                                     Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
                                 } else {
-                                    Toast.makeText(getActivity(), "Пожалуйста, подтвердите ваш email перед входом в приложение", Toast.LENGTH_LONG).show();
+                                    showCustomSnackbar("Пожалуйста, подтвердите ваш email перед входом в приложение.");
                                 }
                             } else {
-                                Toast.makeText(getActivity(), "Ошибка аутентификации", Toast.LENGTH_SHORT).show();
+                                showCustomSnackbar("Ошибка аутентификации!");
                             }
                         });
             }

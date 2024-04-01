@@ -26,7 +26,6 @@ import com.example.coursach.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
-import java.util.Objects;
 
 public class MainFragment extends Fragment {
 

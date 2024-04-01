@@ -1,12 +1,13 @@
 package com.example.coursach.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,13 +15,31 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.coursach.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterFragment extends Fragment {
 
+
     private EditText emailEdt, passEdt;
     private FirebaseAuth mAuth;
+
+    private void showCustomSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
+        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View customView = inflater.inflate(R.layout.custom_snackbar, null);
+
+        TextView textView = customView.findViewById(R.id.snackbar_text);
+        textView.setText(message);
+
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(customView, 0);
+
+        snackbar.show();
+    }
 
     @Nullable
     @Override
@@ -48,16 +67,16 @@ public class RegisterFragment extends Fragment {
             String password = passEdt.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(getActivity(), "Пожалуйста, введите ваш email и пароль", Toast.LENGTH_SHORT).show();
+                showCustomSnackbar("Пожалуйста, введите ваш email и пароль.");
             } else if (!isEmailValid(email)) {
-                Toast.makeText(getActivity(), "Некорректный формат email", Toast.LENGTH_SHORT).show();
+                showCustomSnackbar("Некорректный формат email!");
             } else {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 sendEmailVerification(view);
                             } else {
-                                Toast.makeText(getActivity(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                                showCustomSnackbar("Ошибка регистрации!");
                             }
                         });
             }
@@ -70,10 +89,10 @@ public class RegisterFragment extends Fragment {
             user.sendEmailVerification()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Письмо с подтверждением отправлено. Проверьте вашу почту.", Toast.LENGTH_LONG).show();
+                            showCustomSnackbar( "Письмо с подтверждением отправлено. Проверьте вашу почту.");
                             Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
                         } else {
-                            Toast.makeText(getActivity(), "Не удалось отправить письмо с подтверждением.", Toast.LENGTH_SHORT).show();
+                            showCustomSnackbar("Не удалось отправить письмо с подтверждением.");
                         }
                     });
         }
