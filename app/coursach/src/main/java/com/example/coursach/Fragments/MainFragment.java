@@ -1,9 +1,13 @@
 package com.example.coursach.Fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +23,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.coursach.Adapter.FilmListAdapter;
 import com.example.coursach.Domain.ListFilm;
 import com.example.coursach.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.util.Objects;
 
 public class MainFragment extends Fragment {
 
-    private RecyclerView.Adapter adapterNewMovies, adapterUpComing;
     private RecyclerView recyclerViewNewMovies, recyclerViewUpComing;
     private RequestQueue mRequestQueue;
     private ProgressBar loading1, loading2;
@@ -39,12 +43,25 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         initView(view);
         sendRequest1();
         sendRequest2();
+
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(v -> navController.navigate(R.id.mainFragment));
+
+        ImageView liked = view.findViewById(R.id.liked);
+        liked.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
+
+        ImageView seen = view.findViewById(R.id.seen);
+        seen.setOnClickListener(v -> navController.navigate(R.id.seenFragment));
     }
 
     private void initView(View view) {
+
         recyclerViewNewMovies = view.findViewById(R.id.view1);
         recyclerViewNewMovies.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewUpComing = view.findViewById(R.id.view2);
@@ -52,6 +69,40 @@ public class MainFragment extends Fragment {
 
         loading1 = view.findViewById(R.id.loading1);
         loading2 = view.findViewById(R.id.loading2);
+
+        EditText editTextSearch = view.findViewById(R.id.editTextText);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchText = s.toString();
+                if (!searchText.isEmpty()) {
+                    searchMovies(searchText);
+                }
+            }
+        });
+    }
+
+    private void searchMovies(String query) {
+        String searchUrl = "https://moviesapi.ir/api/v1/movies?q=" + query;
+        loading1.setVisibility(View.VISIBLE);
+        StringRequest mStringRequest = new StringRequest(Request.Method.GET, searchUrl, response -> {
+            Gson gson = new Gson();
+            loading1.setVisibility(View.GONE);
+
+            ListFilm items = gson.fromJson(response, ListFilm.class);
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            FilmListAdapter adapter = new FilmListAdapter(items, navController);
+            recyclerViewNewMovies.setAdapter(adapter);
+        }, error -> loading1.setVisibility(View.GONE));
+        mRequestQueue.add(mStringRequest);
     }
 
     private void sendRequest1() {

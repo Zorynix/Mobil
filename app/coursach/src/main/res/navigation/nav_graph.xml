@@ -29,6 +29,17 @@
     </fragment>
 
     <fragment
+        android:id="@+id/likedFragment"
+        android:name="com.example.coursach.Fragments.LikedFragment"
+        android:label="fragment_liked"
+        tools:layout="@layout/fragment_liked" />
+    <fragment
+        android:id="@+id/seenFragment"
+        android:name="com.example.coursach.Fragments.SeenFragment"
+        android:label="fragment_seen"
+        tools:layout="@layout/fragment_seen" />
+
+    <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.coursach.Fragments.RegisterFragment"
         android:label="fragment_register"

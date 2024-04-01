@@ -15,17 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import com.example.coursach.Domain.FilmItem;
 import com.example.coursach.Domain.ListFilm;
 
 import com.example.coursach.R;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHolder> {
 
     ListFilm items;
-    Context context;
-
     NavController navController;
 
     public FilmListAdapter(ListFilm items, NavController navController) {
@@ -33,12 +34,12 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         this.navController = navController;
     }
 
+
     @NonNull
     @Override
     public FilmListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_film, parent, false);
-        context = parent.getContext();
 
         return new ViewHolder(inflate);
     }
@@ -62,7 +63,7 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return items.getData().size();
+        return (items != null && items.getData() != null) ? items.getData().size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

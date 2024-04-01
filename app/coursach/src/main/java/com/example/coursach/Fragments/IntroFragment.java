@@ -1,10 +1,14 @@
 package com.example.coursach.Fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +20,8 @@ import androidx.navigation.Navigation;
 
 import com.example.coursach.R;
 
+import java.util.Objects;
+
 public class IntroFragment extends Fragment {
 
     @Nullable
@@ -25,7 +31,11 @@ public class IntroFragment extends Fragment {
 
         Button getStartBtn = view.findViewById(R.id.getStart);
         getStartBtn.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_introFragment_to_loginFragment);
+            if (isNetworkAvailable()) {
+                Navigation.findNavController(v).navigate(R.id.action_introFragment_to_loginFragment);
+            } else {
+                Toast.makeText(getActivity(), "Internet connection is required", Toast.LENGTH_SHORT).show();
+            }
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.introFragment), (v, insets) -> {
@@ -35,5 +45,12 @@ public class IntroFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

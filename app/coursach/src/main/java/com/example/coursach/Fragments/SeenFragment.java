@@ -2,13 +2,19 @@ package com.example.coursach.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.coursach.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +68,27 @@ public class SeenFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_seen, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ImageView backImg = view.findViewById(R.id.backImg);
+
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+
+        backImg.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigateUp();
+        });
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(v -> navController.navigate(R.id.mainFragment));
+
+        ImageView liked = view.findViewById(R.id.liked);
+        liked.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
+
+        ImageView seen = view.findViewById(R.id.seen);
+        seen.setOnClickListener(v -> navController.navigate(R.id.seenFragment));
     }
 }

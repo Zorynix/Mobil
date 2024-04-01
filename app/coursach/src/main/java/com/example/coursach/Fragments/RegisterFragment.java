@@ -33,6 +33,11 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
+    private boolean isEmailValid(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
+
     private void initView(View view) {
         emailEdt = view.findViewById(R.id.editTextUsername);
         passEdt = view.findViewById(R.id.editTextPassword);
@@ -44,6 +49,8 @@ public class RegisterFragment extends Fragment {
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getActivity(), "Пожалуйста, введите ваш email и пароль", Toast.LENGTH_SHORT).show();
+            } else if (!isEmailValid(email)) {
+                Toast.makeText(getActivity(), "Некорректный формат email", Toast.LENGTH_SHORT).show();
             } else {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(task -> {
