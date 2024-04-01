@@ -82,6 +82,13 @@ public class DetailFragment extends Fragment {
         checkFavoriteStatus();
     }
 
+//    private void markAsViewed(FilmItem film) {
+//        SharedPreferences prefs = requireActivity().getSharedPreferences("ViewedMovies", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putBoolean("Film_" + film.getId(), true);
+//        editor.apply();
+//    }
+
     private void showCustomSnackbar(String message) {
         Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
         @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
@@ -188,6 +195,7 @@ public class DetailFragment extends Fragment {
             currentFilm = gson.fromJson(response, FilmItem.class);
 
             if (currentFilm != null) {
+//                markAsViewed(currentFilm);
                 Glide.with(this)
                         .load(currentFilm.getPoster())
                         .into(pic1);

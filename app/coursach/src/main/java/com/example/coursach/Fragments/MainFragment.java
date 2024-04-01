@@ -47,16 +47,6 @@ public class MainFragment extends Fragment {
         sendRequest1();
         sendRequest2();
 
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(v -> navController.navigate(R.id.mainFragment));
-
-        ImageView liked = view.findViewById(R.id.liked);
-        liked.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
-
-        ImageView seen = view.findViewById(R.id.seen);
-        seen.setOnClickListener(v -> navController.navigate(R.id.seenFragment));
     }
 
     private void initView(View view) {

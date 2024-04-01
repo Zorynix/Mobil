@@ -34,6 +34,11 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         this.navController = navController;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void setFilms(List<FilmItem> films) {
+        this.items = (ListFilm) films;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -42,6 +47,10 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_film, parent, false);
 
         return new ViewHolder(inflate);
+    }
+
+    public FilmListAdapter(List<FilmItem> movies, NavController navController) {
+        this.navController = navController;
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,3 +86,4 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         }
     }
 }
+

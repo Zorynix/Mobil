@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">MediaLibrary</string>
     <string name="intro">Ваша персональная медиатека прямо в кармане</string>
     <string name="get_start">Начать</string>
     <string name="username">Имя пользователя</string>
