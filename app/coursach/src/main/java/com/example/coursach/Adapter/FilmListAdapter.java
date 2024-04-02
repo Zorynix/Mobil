@@ -75,7 +75,7 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         return (items != null && items.getData() != null) ? items.getData().size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTxt, ScoreTxt;
         ImageView pic;
         public ViewHolder(@NonNull View itemView){

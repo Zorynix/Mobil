@@ -1,0 +1,48 @@
+package com.example.coursach.Adapter;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.coursach.R;
+
+import java.util.List;
+
+public class LikedFilmsAdapter extends RecyclerView.Adapter<LikedFilmsAdapter.ViewHolder> {
+
+    private final List<String> filmTitles;
+
+    public LikedFilmsAdapter(List<String> filmTitles) {
+        this.filmTitles = filmTitles;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_liked_film, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.filmTitleText.setText(filmTitles.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return filmTitles.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView filmTitleText;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            filmTitleText = itemView.findViewById(R.id.filmTitleText);
+        }
+    }
+}

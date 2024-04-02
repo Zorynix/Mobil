@@ -5,7 +5,6 @@
     android:id="@+id/likedFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".Fragments.LikedFragment">
@@ -40,19 +39,23 @@
                 app:layout_constraintStart_toStartOf="parent"
 
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                android:contentDescription="@string/todo" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewLiked"
+                android:layout_width="399dp"
+                android:layout_height="699dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backImg"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewLiked"
-        android:layout_width="414dp"
-        android:layout_height="672dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ScrollViewLiked"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ScrollViewLiked" />
 
     <include
         android:id="@+id/bottom_navigation"
