@@ -56,7 +56,7 @@ public class MainFragment extends Fragment {
         liked.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
 
         ImageView seen = view.findViewById(R.id.seen);
-        seen.setOnClickListener(v -> navController.navigate(R.id.seenFragment));
+        seen.setOnClickListener(v -> navController.navigate(R.id.descriptionFragment));
     }
 
     private void initView(View view) {

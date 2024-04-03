@@ -46,7 +46,7 @@
         </action>
     </fragment>
     <fragment
-        android:id="@+id/seenFragment"
+        android:id="@+id/descriptionFragment"
         android:name="com.example.coursach.Fragments.DescriptionFragment"
         android:label="fragment_seen"
         tools:layout="@layout/fragment_description" />
