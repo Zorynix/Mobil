@@ -59,7 +59,7 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
         if (getArguments() != null) {
-            idFilm = getArguments().getInt("id", 0);
+            idFilm = getArguments().getInt("filmId", 0);
         }
 
         initView(view);
@@ -82,19 +82,12 @@ public class DetailFragment extends Fragment {
         checkFavoriteStatus();
     }
 
-//    private void markAsViewed(FilmItem film) {
-//        SharedPreferences prefs = requireActivity().getSharedPreferences("ViewedMovies", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putBoolean("Film_" + film.getId(), true);
-//        editor.apply();
-//    }
-
     private void showCustomSnackbar(String message) {
         Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
         @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
-        View customView = inflater.inflate(R.layout.custom_snackbar, null);
+        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.custom_snackbar, null);
 
         TextView textView = customView.findViewById(R.id.snackbar_text);
         textView.setText(message);
@@ -121,9 +114,7 @@ public class DetailFragment extends Fragment {
         favoriteImg = view.findViewById(R.id.favorite);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        backImg.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
-        });
+        backImg.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
     }
 
     private void toggleFavorite(FilmItem film) {
@@ -195,7 +186,6 @@ public class DetailFragment extends Fragment {
             currentFilm = gson.fromJson(response, FilmItem.class);
 
             if (currentFilm != null) {
-//                markAsViewed(currentFilm);
                 Glide.with(this)
                         .load(currentFilm.getPoster())
                         .into(pic1);

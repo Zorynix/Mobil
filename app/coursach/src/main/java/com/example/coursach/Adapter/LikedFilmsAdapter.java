@@ -9,17 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.coursach.Domain.FilmItem;
 import com.example.coursach.R;
 
 import java.util.List;
 
 public class LikedFilmsAdapter extends RecyclerView.Adapter<LikedFilmsAdapter.ViewHolder> {
 
-    private final List<String> filmTitles;
-    private final ItemClickListener clickListener;
+    private final List<FilmItem> films;
+    private final OnFilmClickListener clickListener;
 
-    public LikedFilmsAdapter(List<String> filmTitles, ItemClickListener clickListener) {
-        this.filmTitles = filmTitles;
+    public LikedFilmsAdapter(List<FilmItem> films, OnFilmClickListener clickListener) {
+        this.films = films;
         this.clickListener = clickListener;
     }
 
@@ -33,17 +34,18 @@ public class LikedFilmsAdapter extends RecyclerView.Adapter<LikedFilmsAdapter.Vi
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.filmTitleText.setText((position + 1) + ". " + filmTitles.get(position));
-        holder.itemView.setOnClickListener(v -> clickListener.onItemClick(position));
+        FilmItem film = films.get(position);
+        holder.filmTitleText.setText((position + 1) + ". " + film.getTitle());
+        holder.itemView.setOnClickListener(v -> clickListener.onFilmClick(film.getId()));
     }
 
-    public interface ItemClickListener {
-        void onItemClick(int position);
+    public interface OnFilmClickListener {
+        void onFilmClick(int filmId);
     }
 
     @Override
     public int getItemCount() {
-        return filmTitles.size();
+        return films.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

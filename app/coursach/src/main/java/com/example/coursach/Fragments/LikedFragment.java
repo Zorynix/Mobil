@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursach.Adapter.FilmListAdapter;
 import com.example.coursach.Adapter.LikedFilmsAdapter;
 import com.example.coursach.Domain.FilmItem;
 import com.example.coursach.R;
@@ -30,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class LikedFragment extends Fragment {
 
@@ -48,9 +46,7 @@ public class LikedFragment extends Fragment {
 
         ImageView backImg = view.findViewById(R.id.backImg);
 
-        backImg.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigateUp();
-        });
+        backImg.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v -> navController.navigate(R.id.mainFragment));
@@ -65,21 +61,27 @@ public class LikedFragment extends Fragment {
     }
 
     private void getLikedFilmTitles() {
+        Log.d("LikedFragment", "Entering getLikedFilmTitles");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
+            Log.d("LikedFragment", "UserID: " + userId);
             DatabaseReference databaseReference = FirebaseDatabase.getInstance(getResources().getString(R.string.url)).getReference("users").child(userId).child("favorites");
+            Log.d("LikedFragment", "DatabaseReference: " + databaseReference);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    List<String> filmTitles = new ArrayList<>();
+                    List<FilmItem> films = new ArrayList<>();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Log.d("LikedFragment", "DataSnapshot: " + dataSnapshot.getKey());
                         FilmItem film = dataSnapshot.getValue(FilmItem.class);
                         if (film != null) {
-                            filmTitles.add(film.getTitle());
+                            films.add(film);
+                            Log.d("LikedFragment", "Film added: " + film.getTitle());
                         }
                     }
-                    updateRecyclerView(filmTitles);
+                    updateRecyclerView(films);
+                    Log.d("LikedFragment", "Exiting getLikedFilmTitles");
                 }
 
                 @Override
@@ -87,19 +89,22 @@ public class LikedFragment extends Fragment {
                     Log.e("LikedFragment", "Database Error: " + error.getMessage());
                 }
             });
+        } else {
+            Log.d("LikedFragment", "User is null");
         }
     }
 
-    private void updateRecyclerView(List<String> filmTitles) {
+    private void updateRecyclerView(List<FilmItem> films) {
+        Log.d("LikedFragment", "Updating RecyclerView with " + films.size() + " items");
         RecyclerView recyclerView = requireView().findViewById(R.id.recyclerViewLiked);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        LikedFilmsAdapter adapter = new LikedFilmsAdapter(filmTitles, position -> {
+        LikedFilmsAdapter adapter = new LikedFilmsAdapter(films, filmId -> {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             Bundle bundle = new Bundle();
-            // This is a placeholder for demonstration. Replace position with your actual film ID.
-            // For instance, if your FilmItem or the way you retrieve films includes IDs, use those instead.
-            bundle.putInt("id", position); // Assuming IDs start from 1 for demonstration purposes.
+            bundle.putInt("filmId", filmId);
+            Log.e("LikedFragment", "Film ID: " + filmId);
+
             navController.navigate(R.id.action_likedFragment_to_detailFragment, bundle);
         });
 
