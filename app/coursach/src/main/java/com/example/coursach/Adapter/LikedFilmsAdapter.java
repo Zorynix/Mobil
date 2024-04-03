@@ -1,5 +1,6 @@
 package com.example.coursach.Adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,11 @@ import java.util.List;
 public class LikedFilmsAdapter extends RecyclerView.Adapter<LikedFilmsAdapter.ViewHolder> {
 
     private final List<String> filmTitles;
+    private final ItemClickListener clickListener;
 
-    public LikedFilmsAdapter(List<String> filmTitles) {
+    public LikedFilmsAdapter(List<String> filmTitles, ItemClickListener clickListener) {
         this.filmTitles = filmTitles;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -27,9 +30,15 @@ public class LikedFilmsAdapter extends RecyclerView.Adapter<LikedFilmsAdapter.Vi
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.filmTitleText.setText(filmTitles.get(position));
+        holder.filmTitleText.setText((position + 1) + ". " + filmTitles.get(position));
+        holder.itemView.setOnClickListener(v -> clickListener.onItemClick(position));
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(int position);
     }
 
     @Override

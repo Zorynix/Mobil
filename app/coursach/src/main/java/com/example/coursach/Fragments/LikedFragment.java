@@ -93,8 +93,16 @@ public class LikedFragment extends Fragment {
     private void updateRecyclerView(List<String> filmTitles) {
         RecyclerView recyclerView = requireView().findViewById(R.id.recyclerViewLiked);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        LikedFilmsAdapter adapter = new LikedFilmsAdapter(filmTitles);
-        Log.d("LikedFragment", "Setting adapter with movies: " + filmTitles.size());
+
+        LikedFilmsAdapter adapter = new LikedFilmsAdapter(filmTitles, position -> {
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            Bundle bundle = new Bundle();
+            // This is a placeholder for demonstration. Replace position with your actual film ID.
+            // For instance, if your FilmItem or the way you retrieve films includes IDs, use those instead.
+            bundle.putInt("id", position); // Assuming IDs start from 1 for demonstration purposes.
+            navController.navigate(R.id.action_likedFragment_to_detailFragment, bundle);
+        });
+
         recyclerView.setAdapter(adapter);
     }
 }

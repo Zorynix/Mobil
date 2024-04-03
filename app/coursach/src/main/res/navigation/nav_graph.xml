@@ -32,12 +32,24 @@
         android:id="@+id/likedFragment"
         android:name="com.example.coursach.Fragments.LikedFragment"
         android:label="fragment_liked"
-        tools:layout="@layout/fragment_liked" />
+        tools:layout="@layout/fragment_liked">
+        <action
+            android:id="@+id/action_likedFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="id"
+                app:argType="integer" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/seenFragment"
-        android:name="com.example.coursach.Fragments.SeenFragment"
+        android:name="com.example.coursach.Fragments.DescriptionFragment"
         android:label="fragment_seen"
-        tools:layout="@layout/fragment_seen" />
+        tools:layout="@layout/fragment_description" />
 
     <fragment
         android:id="@+id/registerFragment"

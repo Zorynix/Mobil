@@ -42,6 +42,19 @@
                 app:tint="@color/white"
                 android:contentDescription="@string/todo" />
 
+            <TextView
+                android:id="@+id/favorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/favorites"
+                android:textColor="#34e3c4"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backImg" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewLiked"
                 android:layout_width="399dp"
@@ -50,7 +63,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/backImg"
+                app:layout_constraintTop_toBottomOf="@+id/favorites"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
