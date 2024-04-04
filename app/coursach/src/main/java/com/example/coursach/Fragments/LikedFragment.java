@@ -102,7 +102,7 @@ public class LikedFragment extends Fragment {
         LikedFilmsAdapter adapter = new LikedFilmsAdapter(films, filmId -> {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             Bundle bundle = new Bundle();
-            bundle.putInt("filmId", filmId);
+            bundle.putInt("id", filmId);
             Log.e("LikedFragment", "Film ID: " + filmId);
 
             navController.navigate(R.id.action_likedFragment_to_detailFragment, bundle);

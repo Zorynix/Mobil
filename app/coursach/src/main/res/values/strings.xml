@@ -5,8 +5,7 @@
     <string name="username">Имя пользователя</string>
     <string name="password">Пароль</string>
     <string name="login">Авторизоваться</string>
-    <string name="noacc">У вас нет аккаунта?</string>
-    <string name="reg">Зарегистрируйтесь сейчас</string>
+    <string name="noacc">После нажатия на кнопку "продолжить", вам будет отправлен код подтверждения. После подтверждения email вы сможете использовать его для входа.</string>
     <string name="auth">Авторизация</string>
     <string name="what_would_you_like_to_watch">Что вы хотите посмотреть?</string>
     <string name="search_movies">Поиск фильма...</string>
@@ -26,9 +25,9 @@
     <string name="title">title</string>
     <string name="score">score</string>
     <string name="title2">title</string>
-    <string name="register">Регистрация</string>
-    <string name="mail">Почта</string>
-    <string name="reg_in">Зарегистрироваться</string>
+    <string name="register">Войдите с помощью email</string>
+    <string name="mail">example@example.com</string>
+    <string name="continu">Продолжить</string>
     <string name="remember_me">Запомнить меня</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -42,4 +41,7 @@
 
 </string>
     <string name="appdecsr">О приложении</string>
+    <string name="email">Мы отправили ссылку подтверждения email:\n</string>
+    <string name="input">Введите email:</string>
+    <string name="inp_code">Введите пароль</string>
 </resources>

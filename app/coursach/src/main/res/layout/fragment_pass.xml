@@ -2,11 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/loginFragment"
+    android:id="@+id/codeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/main_background"
-    tools:context=".Fragments.LoginFragment">
+    tools:context=".Fragments.PassFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
@@ -61,52 +63,51 @@
                 android:layout_height="1dp"
                 android:background="@color/grey">
             </LinearLayout>
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/inputCode"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
-                <TextView
-                    android:id="@+id/inputlabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/input"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:text="@string/inp_code"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/editTextEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:autofillHints=""
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/btn_background"
-                    android:ems="10"
-                    android:hint="@string/mail"
-                    android:inputType="textEmailAddress"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey" />
+            <EditText
+                android:id="@+id/editTextCode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_background"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey"
+                android:autofillHints="" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerBtn"
+                style="@android:style/Widget.Button"
+                android:background="@drawable/btn_background"
+                android:layout_marginTop="156dp"
+                android:text="@string/continu"
+                android:textSize="16sp"
+                android:textFontWeight="600"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/loginBtn"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="130dp"
-                    android:background="@drawable/btn_back"
-                    android:text="@string/continu"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textFontWeight="600" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

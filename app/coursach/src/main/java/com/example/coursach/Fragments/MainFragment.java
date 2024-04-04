@@ -24,6 +24,8 @@ import com.example.coursach.Adapter.FilmListAdapter;
 import com.example.coursach.Domain.ListFilm;
 import com.example.coursach.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 
@@ -57,6 +59,15 @@ public class MainFragment extends Fragment {
 
         ImageView seen = view.findViewById(R.id.seen);
         seen.setOnClickListener(v -> navController.navigate(R.id.descriptionFragment));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null || !currentUser.isEmailVerified()) {
+            Navigation.findNavController(requireView()).navigate(R.id.action_mainFragment_to_loginFragment);
+        }
     }
 
     private void initView(View view) {

@@ -1,15 +1,20 @@
 package com.example.coursach.Fragments;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,13 +27,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.example.coursach.R;
 
+import java.util.Objects;
+
 public class LoginFragment extends Fragment {
 
-    private EditText userEdt, passEdt;
+    private EditText editTextEmail;
+    private Button loginBtn;
     private FirebaseAuth mAuth;
-    private SharedPreferences sharedPreferences;
-    private CheckBox rememberMeChk;
 
+
+    private boolean isEmailValid(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
 
     private void showCustomSnackbar(String message) {
         Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
@@ -49,63 +60,64 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-
-        initView(view);
-
         mAuth = FirebaseAuth.getInstance();
-        sharedPreferences = requireActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+
+
+
+        editTextEmail = view.findViewById(R.id.editTextEmail);
+        editTextEmail.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(editTextEmail, InputMethodManager.SHOW_IMPLICIT);
+        }
+
+        ImageView backImg = view.findViewById(R.id.backImg);
+        backImg.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+
 
         return view;
     }
 
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        checkLogin();
-    }
 
-    private void checkLogin() {
-        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
-        if (isLoggedIn) {
+        loginBtn = view.findViewById(R.id.loginBtn);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && currentUser.isEmailVerified()) {
             Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_mainFragment);
         }
+
+        loginBtn.setOnClickListener(v -> attemptLogin());
+
     }
 
-    private void initView(View view) {
-        userEdt = view.findViewById(R.id.editTextUsername);
-        passEdt = view.findViewById(R.id.editTextPassword);
-        Button loginBtn = view.findViewById(R.id.loginBtn);
-        rememberMeChk = view.findViewById(R.id.checkboxRememberMe);
+    private void attemptLogin() {
+        String email = editTextEmail.getText().toString().trim();
 
-        TextView registerText = view.findViewById(R.id.register);
-        registerText.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment));
+        if (email.isEmpty()) {
+            showCustomSnackbar("Пожалуйста, введите адрес электронной почты.");
+            return;
+        }
 
-        loginBtn.setOnClickListener(v -> {
-            String email = userEdt.getText().toString().trim();
-            String password = passEdt.getText().toString().trim();
+        if (!isEmailValid(email)) {
+            showCustomSnackbar("Некорректный адрес электронной почты.");
+            return;
+        }
 
-            if (email.isEmpty() || password.isEmpty()) {
-                showCustomSnackbar("Пожалуйста, введите ваш логин и пароль.");
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+            boolean isNewUser = Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty();
+            if (!isNewUser) {
+                Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_mainFragment);
             } else {
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(requireActivity(), task -> {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                if (user != null && user.isEmailVerified()) {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean("isLoggedIn", rememberMeChk.isChecked());
-                                    editor.apply();
-                                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
-                                } else {
-                                    showCustomSnackbar("Пожалуйста, подтвердите ваш email перед входом в приложение.");
-                                }
-                            } else {
-                                showCustomSnackbar("Ошибка аутентификации!");
-                            }
-                        });
+                LoginFragmentDirections.ActionLoginFragmentToPassFragment direction =
+                        LoginFragmentDirections.actionLoginFragmentToPassFragment(email);
+                Navigation.findNavController(requireView()).navigate(direction);
             }
+        }).addOnFailureListener(e -> {
+            showCustomSnackbar("Произошла ошибка при попытке входа. Попробуйте снова.");
         });
     }
 }

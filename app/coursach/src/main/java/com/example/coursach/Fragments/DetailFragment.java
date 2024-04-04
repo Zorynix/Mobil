@@ -59,7 +59,7 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
         if (getArguments() != null) {
-            idFilm = getArguments().getInt("filmId", 0);
+            idFilm = getArguments().getInt("id", 0);
         }
 
         initView(view);

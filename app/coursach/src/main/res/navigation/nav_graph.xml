@@ -12,6 +12,9 @@
         tools:layout="@layout/fragment_intro" >
         <action
             android:id="@+id/action_introFragment_to_loginFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_introFragment_to_mainFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 
@@ -24,8 +27,8 @@
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            android:id="@+id/action_loginFragment_to_passFragment"
+            app:destination="@id/passFragment" />
     </fragment>
 
     <fragment
@@ -52,12 +55,15 @@
         tools:layout="@layout/fragment_description" />
 
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.coursach.Fragments.RegisterFragment"
+        android:id="@+id/passFragment"
+        android:name="com.example.coursach.Fragments.PassFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register">
+        tools:layout="@layout/fragment_pass">
+        <argument
+            android:name="email"
+            app:argType="string"/>
         <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
+            android:id="@+id/action_passFragment_to_mainFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 
@@ -69,6 +75,9 @@
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
