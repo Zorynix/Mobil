@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">MediaLibrary</string>
     <string name="intro">Ваша персональная медиатека прямо в кармане</string>
-    <string name="get_start">Get start</string>
+    <string name="get_start">Начать</string>
     <string name="username">Имя пользователя</string>
     <string name="password">Пароль</string>
     <string name="login">Авторизоваться</string>
-    <string name="noacc">У вас нет аккаунта?</string>
-    <string name="reg">Зарегистрируйтесь сейчас</string>
+    <string name="noacc">После нажатия на кнопку "продолжить", вам будет отправлен код подтверждения. После подтверждения email вы сможете использовать его для входа.</string>
     <string name="auth">Авторизация</string>
-    <string name="what_would_you_like_to_watch">What would you like to watch?</string>
-    <string name="search_movies">Search Movies...</string>
-    <string name="new_movies">New Movies</string>
-    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="what_would_you_like_to_watch">Что вы хотите посмотреть?</string>
+    <string name="search_movies">Поиск фильма...</string>
+    <string name="new_movies">Лучшие фильмы</string>
+    <string name="upcoming_movies">Популярные фильмы</string>
     <string name="home">Home</string>
+    <string name="url">https://coursach-3342d-default-rtdb.europe-west1.firebasedatabase.app</string>
     <string name="profile">Profile</string>
     <string name="mr">mr</string>
     <string name="todo">TODO</string>
@@ -25,8 +25,23 @@
     <string name="title">title</string>
     <string name="score">score</string>
     <string name="title2">title</string>
-    <string name="register">Регистрация</string>
-    <string name="mail">Почта</string>
-    <string name="reg_in">Зарегестрироваться</string>
+    <string name="register">Войдите с помощью email</string>
+    <string name="mail">example@example.com</string>
+    <string name="continu">Продолжить</string>
     <string name="remember_me">Запомнить меня</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ddd">ddd</string>
+    <string name="dadadad">dadadad</string>
+    <string name="favorites">Избранные фильмы</string>
+    <string name="descript">
+        Домашняя медиатека - это приложение для управления домашней коллекцией фильмов. Приложение предоставляет удобный интерфейс для организации и доступа к кино.
+
+\n\n\nПриложение создано на основе Java для Android и использует базу данных FireBase для хранения информации о фильмах и использования авторизации. Для интерфейса приложения используется Android SDK.
+
+</string>
+    <string name="appdecsr">О приложении</string>
+    <string name="email">Мы отправили ссылку подтверждения email:\n</string>
+    <string name="input">Введите email:</string>
+    <string name="inp_code">Введите пароль</string>
 </resources>
