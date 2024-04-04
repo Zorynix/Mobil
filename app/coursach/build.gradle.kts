@@ -40,8 +40,6 @@ dependencies {
 
     val room_version = "2.6.1"
 
-    val nal_version = "2.7.7"
-
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.github.Dimezis:BlurView:version-2.0.3")
     implementation("com.google.firebase:firebase-auth:22.3.1")
