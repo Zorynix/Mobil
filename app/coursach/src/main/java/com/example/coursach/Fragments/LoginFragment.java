@@ -1,18 +1,13 @@
 package com.example.coursach.Fragments;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +27,6 @@ import java.util.Objects;
 public class LoginFragment extends Fragment {
 
     private EditText editTextEmail;
-    private Button loginBtn;
     private FirebaseAuth mAuth;
 
 
@@ -46,7 +40,7 @@ public class LoginFragment extends Fragment {
         @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
-        View customView = inflater.inflate(R.layout.custom_snackbar, null);
+        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.custom_snackbar, null);
 
         TextView textView = customView.findViewById(R.id.snackbar_text);
         textView.setText(message);
@@ -74,7 +68,7 @@ public class LoginFragment extends Fragment {
         }
 
         ImageView backImg = view.findViewById(R.id.backImg);
-        backImg.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        backImg.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_introFragment));
 
 
         return view;
@@ -83,7 +77,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        loginBtn = view.findViewById(R.id.loginBtn);
+        Button loginBtn = view.findViewById(R.id.loginBtn);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null && currentUser.isEmailVerified()) {
@@ -116,8 +110,6 @@ public class LoginFragment extends Fragment {
                         LoginFragmentDirections.actionLoginFragmentToPassFragment(email);
                 Navigation.findNavController(requireView()).navigate(direction);
             }
-        }).addOnFailureListener(e -> {
-            showCustomSnackbar("Произошла ошибка при попытке входа. Попробуйте снова.");
-        });
+        }).addOnFailureListener(e -> showCustomSnackbar("Произошла ошибка при попытке входа. Попробуйте снова."));
     }
 }
