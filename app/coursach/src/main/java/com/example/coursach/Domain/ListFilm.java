@@ -10,16 +10,16 @@ public class ListFilm {
 
     @SerializedName("data")
     @Expose
-    private List<Datum> data;
+    private List<FilmItem> data;
     @SerializedName("metadata")
     @Expose
     private Metadata metadata;
 
-    public List<Datum> getData() {
+    public List<FilmItem> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<FilmItem> data) {
         this.data = data;
     }
 

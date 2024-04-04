@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -9,8 +10,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.coursach"
-        minSdk = 24
+        minSdk = 33
         targetSdk = 34
+        multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
 
@@ -38,10 +40,15 @@ dependencies {
 
     val room_version = "2.6.1"
 
+    val nal_version = "2.7.7"
 
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.github.Dimezis:BlurView:version-2.0.3")
     implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-database:20.3.1")
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.firebase:firebase-analytics:21.6.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.android.volley:volley:1.2.1")

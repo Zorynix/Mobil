@@ -36,9 +36,9 @@ android {
 
 dependencies {
 
-    implementation ("com.yandex.div:div-core:3.0.1")
-    implementation ("com.yandex.div:div:3.0.1")
-    implementation ("com.yandex.div:div-json:3.0.1")
+    implementation ("com.yandex.div:div-core:29.12.0")
+    implementation ("com.yandex.div:div:29.12.0")
+    implementation ("com.yandex.div:div-json:29.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
