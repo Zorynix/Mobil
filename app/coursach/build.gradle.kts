@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.coursach"
-        minSdk = 33
+        minSdk = 31
         targetSdk = 34
         multiDexEnabled = true
         versionCode = 1

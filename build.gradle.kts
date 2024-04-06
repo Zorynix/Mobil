@@ -17,18 +17,19 @@ detekt {
     toolVersion = "1.23.3"
     config.setFrom(file(".detekt.yml"))
     parallel=true
-    source.setFrom("app/prac1/src/main/java",
-            "app/prac2/src/main/java",
-            "app/prac3/src/main/java",
-            "app/prac4/src/main/java",
-            "app/prac5/src/main/java",
-            "app/prac6/src/main/java",
-            "app/prac7/src/main/java",
-            "app/prac8/src/main/java",
-            "app/prac9/src/main/java",
-            "app/prac10/src/main/java",
-            "app/prac11/src/main/java",
-            "app/prac12/src/main/java",
+    source.setFrom(
+//            "app/prac1/src/main/java",
+//            "app/prac2/src/main/java",
+//            "app/prac3/src/main/java",
+//            "app/prac4/src/main/java",
+//            "app/prac5/src/main/java",
+//            "app/prac6/src/main/java",
+//            "app/prac7/src/main/java",
+//            "app/prac8/src/main/java",
+//            "app/prac9/src/main/java",
+//            "app/prac10/src/main/java",
+//            "app/prac11/src/main/java",
+//            "app/prac12/src/main/java",
             "app/coursach/src/main/java")
     allRules=true
 }
