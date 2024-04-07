@@ -89,7 +89,7 @@
                 android:background="@drawable/btn_background"
                 android:ems="10"
                 android:hint="@string/password"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="@color/white"
