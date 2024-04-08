@@ -16,14 +16,13 @@
         android:roundIcon="@drawable/video_icon_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileDev"
-        >
+        tools:targetApi="tiramisu">
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

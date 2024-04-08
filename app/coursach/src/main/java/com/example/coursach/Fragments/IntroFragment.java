@@ -4,7 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +25,16 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class IntroFragment extends Fragment {
 
-    private void showCustomSnackbar(String message) {
+    @SuppressLint("SetTextI18n")
+    private void showCustomSnackbar() {
         Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
         @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
-        View customView = inflater.inflate(R.layout.custom_snackbar, null);
+        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.custom_snackbar, null);
 
         TextView textView = customView.findViewById(R.id.snackbar_text);
-        textView.setText(message);
+        textView.setText("Internet connection is required");
 
         layout.setPadding(0, 0, 0, 0);
         layout.addView(customView, 0);
@@ -63,7 +65,7 @@ public class IntroFragment extends Fragment {
             if (isNetworkAvailable()) {
                 Navigation.findNavController(requireView()).navigate(R.id.action_introFragment_to_loginFragment);
             } else {
-                showCustomSnackbar("Internet connection is required");
+                showCustomSnackbar();
             }
         });
     }
@@ -79,9 +81,16 @@ public class IntroFragment extends Fragment {
     }
 
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            Network network = connectivityManager.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(network);
+                return networkCapabilities != null && (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+            }
+        }
+        return false;
     }
 }

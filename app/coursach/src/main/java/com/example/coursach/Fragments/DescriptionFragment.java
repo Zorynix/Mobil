@@ -36,24 +36,16 @@ public class DescriptionFragment extends Fragment {
 
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
 
-        backImg.setOnClickListener(v -> {
-            navController.navigateUp();
-        });
+        backImg.setOnClickListener(v -> navController.navigateUp());
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(v -> {
-            navController.navigate(R.id.mainFragment);
-        });
+        fab.setOnClickListener(v -> navController.navigate(R.id.mainFragment));
 
         ImageView liked = view.findViewById(R.id.liked);
-        liked.setOnClickListener(v -> {
-            navController.navigate(R.id.likedFragment);
-        });
+        liked.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
 
         ImageView seen = view.findViewById(R.id.seen);
-        seen.setOnClickListener(v -> {
-            navController.navigate(R.id.descriptionFragment);
-        });
+        seen.setOnClickListener(v -> navController.navigate(R.id.descriptionFragment));
 
         ImageView logoutImg = view.findViewById(R.id.logoutImgSeen);
         logoutImg.setOnClickListener(v -> {
