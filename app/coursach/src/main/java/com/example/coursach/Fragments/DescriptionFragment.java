@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.example.coursach.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class DescriptionFragment extends Fragment {
@@ -53,5 +54,12 @@ public class DescriptionFragment extends Fragment {
         seen.setOnClickListener(v -> {
             navController.navigate(R.id.descriptionFragment);
         });
+
+        ImageView logoutImg = view.findViewById(R.id.logoutImgSeen);
+        logoutImg.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            navController.navigate(R.id.introFragment);
+        });
+
     }
 }
