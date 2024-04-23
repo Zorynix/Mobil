@@ -1,0 +1,41 @@
+@startuml
+
+left to right direction
+
+skinparam actorStyle awesome;
+
+actor "Администратор" as adm
+actor "Авторизованный\nПользователь" as user1
+actor "Неавторизованный\nпользователь" as user2
+
+usecase "Просмотр аккаунтов" as u1
+usecase "Удаление пользователей" as u2
+usecase "Регистрация" as u3
+usecase "Ввод логина\nи пароля" as u4
+usecase "Авторизация" as u5
+usecase "Просмотр данных" as u6
+usecase "Добавление фильма\nв избранное" as u7
+usecase "Список\nизбранных фильмов" as u8
+usecase "Удаление фильма\nиз избранного" as u9
+usecase "Информация о\nфильме" as u10
+usecase "Вид просмотра" as u11
+usecase "Информация\nо приложении" as u12
+usecase "Выход из аккаунта" as u13
+
+adm --> u1
+adm --> u2
+user2 --> u3
+user1 --> u5
+u4 --> u5
+u8 --> u11
+u10 --> u11
+u12 --> u11
+u11 --> u6
+user1 --> u6
+user1 --> u7
+user1 --> u9
+user1 --> u13
+
+
+
+@enduml
