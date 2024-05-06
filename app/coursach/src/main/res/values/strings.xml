@@ -44,4 +44,20 @@
     <string name="email">Мы отправили ссылку подтверждения email:\n</string>
     <string name="input">Введите email:</string>
     <string name="inp_code">Введите пароль</string>
+    <string name="delfav">Удалено из избранного.</string>
+    <string name="addfav">Добавлено в избранное.</string>
+    <string name="errdelfav">Ошибка при удалении из избранного.</string>
+    <string name="erraddfav">Не удалось добавить в избранное.</string>
+    <string name="errloadinfo">Ошибка при загрузке информации о фильме!</string>
+    <string name="errextrinfo">Ошибка при извлечении данных о фильме!</string>
+    <string name="infounav">Информация о фильме недоступна!</string>
+    <string name="erremail">Некорректный адрес электронной почты.</string>
+    <string name="errenter">Произошла ошибка при попытке входа. Попробуйте снова.</string>
+    <string name="emailinp">Пожалуйста, введите адрес электронной почты.</string>
+    <string name="passinp">Пожалуйста, введите пароль.</string>
+    <string name="errreg">Ошибка при регистрации. Попробуйте снова.</string>
+    <string name="errregexist">Ошибка при регистрации. Такой пользователь уже существует. Возможно вы ввели неверный пароль</string>
+    <string name="emailversend">Письмо с подтверждением отправлено на вашу почту.</string>
+    <string name="erremailversend">Не удалось отправить письмо с подтверждением. Попробуйте снова.</string>
+    <string name="errnotexist">Ошибка: пользователь не найден.</string>
 </resources>

@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class PassFragment extends Fragment {
+public class    PassFragment extends Fragment {
 
     private EditText passEdt;
     private FirebaseAuth mAuth;
@@ -99,9 +99,9 @@ public class PassFragment extends Fragment {
                             sendEmailVerification();
                         }
                     } else {
-                        showCustomSnackbar("Ошибка при регистрации. Попробуйте снова.");
+                        showCustomSnackbar(String.valueOf(R.string.errreg));
                     }
-                }).addOnFailureListener(e -> showCustomSnackbar("Ошибка при регистрации. Такой пользователь уже существует. Возможно вы ввели неверный пароль"));
+                }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.errregexist)));
             }
         });
     }
@@ -119,14 +119,14 @@ public class PassFragment extends Fragment {
         if (user != null) {
             user.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    showCustomSnackbar("Письмо с подтверждением отправлено на вашу почту.");
+                    showCustomSnackbar(String.valueOf(R.string.emailversend));
                     Navigation.findNavController(requireView()).navigate(R.id.action_passFragment_to_mainFragment);
                 } else {
-                    showCustomSnackbar("Не удалось отправить письмо с подтверждением. Попробуйте снова.");
+                    showCustomSnackbar(String.valueOf(R.string.erremailversend));
                 }
             });
         } else {
-            showCustomSnackbar("Ошибка: пользователь не найден.");
+            showCustomSnackbar(String.valueOf(R.string.errnotexist));
         }
     }
 }

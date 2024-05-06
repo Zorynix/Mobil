@@ -58,8 +58,6 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-
-
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextEmail.requestFocus();
 
@@ -93,12 +91,12 @@ public class LoginFragment extends Fragment {
         String email = editTextEmail.getText().toString().trim();
 
         if (email.isEmpty()) {
-            showCustomSnackbar("Пожалуйста, введите адрес электронной почты.");
+            showCustomSnackbar(String.valueOf(R.string.emailinp));
             return;
         }
 
         if (!isEmailValid(email)) {
-            showCustomSnackbar("Некорректный адрес электронной почты.");
+            showCustomSnackbar(String.valueOf(R.string.erremail));
             return;
         }
 
@@ -111,6 +109,6 @@ public class LoginFragment extends Fragment {
                         LoginFragmentDirections.actionLoginFragmentToPassFragment(email);
                 Navigation.findNavController(requireView()).navigate(direction);
             }
-        }).addOnFailureListener(e -> showCustomSnackbar("Произошла ошибка при попытке входа. Попробуйте снова."));
+        }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.errenter)));
     }
 }

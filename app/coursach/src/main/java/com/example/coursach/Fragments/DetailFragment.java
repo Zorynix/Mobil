@@ -119,7 +119,7 @@ public class DetailFragment extends Fragment {
 
     private void toggleFavorite(FilmItem film) {
         if (film == null) {
-            showCustomSnackbar("Информация о фильме недоступна!");
+            showCustomSnackbar(String.valueOf(R.string.infounav));
             return;
         }
 
@@ -136,16 +136,16 @@ public class DetailFragment extends Fragment {
 
         if (isCurrentlyFavorite) {
             mDatabase.removeValue().addOnSuccessListener(aVoid -> {
-                showCustomSnackbar("Удалено из избранного.");
+                showCustomSnackbar(String.valueOf(R.string.delfav));
                 saveFavoriteStatus(film.getId(), false);
                 updateFavoriteButtonBackground(false);
-            }).addOnFailureListener(e -> showCustomSnackbar("Ошибка при удалении из избранного."));
+            }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.errdelfav)));
         } else {
             mDatabase.setValue(film).addOnSuccessListener(aVoid -> {
-                showCustomSnackbar("Добавлено в избранное.");
+                showCustomSnackbar(String.valueOf(R.string.addfav));
                 saveFavoriteStatus(film.getId(), true);
                 updateFavoriteButtonBackground(true);
-            }).addOnFailureListener(e -> showCustomSnackbar("Не удалось добавить в избранное."));
+            }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.erraddfav)));
         }
     }
 
@@ -206,11 +206,11 @@ public class DetailFragment extends Fragment {
                     recyclerView.setAdapter(adapterImgList);
                 }
             } else {
-                showCustomSnackbar("Ошибка при загрузке информации о фильме!");
+                showCustomSnackbar(String.valueOf(R.string.errloadinfo));
             }
         }, error -> {
             progressBar.setVisibility(View.GONE);
-            showCustomSnackbar("Ошибка при извлечении данных о фильме!");
+            showCustomSnackbar(String.valueOf(R.string.errextrinfo));
         });
 
         mRequestQueue.add(mStringRequest);
