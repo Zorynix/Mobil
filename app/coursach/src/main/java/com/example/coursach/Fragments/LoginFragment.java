@@ -32,7 +32,7 @@ public class LoginFragment extends Fragment {
 
 
     private boolean isEmailValid(String email) {
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String emailPattern = getString(R.string.pattern);
         return email.matches(emailPattern);
     }
 

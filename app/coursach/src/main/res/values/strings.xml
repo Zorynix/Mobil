@@ -60,4 +60,5 @@
     <string name="emailversend">Письмо с подтверждением отправлено на вашу почту.</string>
     <string name="erremailversend">Не удалось отправить письмо с подтверждением. Попробуйте снова.</string>
     <string name="errnotexist">Ошибка: пользователь не найден.</string>
+    <string name="pattern">[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+</string>
 </resources>
