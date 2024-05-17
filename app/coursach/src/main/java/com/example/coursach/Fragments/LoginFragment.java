@@ -1,6 +1,5 @@
 package com.example.coursach.Fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,54 +9,26 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.example.coursach.R;
-
-
-import java.util.Objects;
+import com.example.coursach.Viewmodels.LoginViewModel;
 
 public class LoginFragment extends Fragment {
 
     private EditText editTextEmail;
-    private FirebaseAuth mAuth;
-
-
-    private boolean isEmailValid(String email) {
-        String emailPattern = getString(R.string.pattern);
-        return email.matches(emailPattern);
-    }
-
-    private void showCustomSnackbar(String message) {
-        Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
-        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.custom_snackbar, null);
-
-        TextView textView = customView.findViewById(R.id.snackbar_text);
-        textView.setText(message);
-
-        layout.setPadding(0, 0, 0, 0);
-        layout.addView(customView, 0);
-
-        snackbar.show();
-    }
+    private LoginViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        mAuth = FirebaseAuth.getInstance();
-
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextEmail.requestFocus();
 
@@ -69,46 +40,44 @@ public class LoginFragment extends Fragment {
         ImageView backImg = view.findViewById(R.id.backImg);
         backImg.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_introFragment));
 
-
         return view;
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
         Button loginBtn = view.findViewById(R.id.loginBtn);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && currentUser.isEmailVerified()) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_mainFragment);
-        }
+        viewModel.checkCurrentUser();
 
-        loginBtn.setOnClickListener(v -> attemptLogin());
-
-    }
-
-    private void attemptLogin() {
-        String email = editTextEmail.getText().toString().trim();
-
-        if (email.isEmpty()) {
-            showCustomSnackbar(String.valueOf(R.string.emailinp));
-            return;
-        }
-
-        if (!isEmailValid(email)) {
-            showCustomSnackbar(String.valueOf(R.string.erremail));
-            return;
-        }
-
-        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
-            boolean isNewUser = Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty();
-            if (!isNewUser) {
+        viewModel.getIsAuthenticated().observe(getViewLifecycleOwner(), isAuthenticated -> {
+            if (isAuthenticated) {
                 Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_mainFragment);
-            } else {
+            }
+        });
+
+        viewModel.getIsNewUser().observe(getViewLifecycleOwner(), isNewUser -> {
+            if (isNewUser != null && isNewUser) {
+                String email = editTextEmail.getText().toString().trim();
                 LoginFragmentDirections.ActionLoginFragmentToPassFragment direction =
                         LoginFragmentDirections.actionLoginFragmentToPassFragment(email);
                 Navigation.findNavController(requireView()).navigate(direction);
             }
-        }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.errenter)));
+        });
+
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
+            if (error != null) {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        loginBtn.setOnClickListener(v -> {
+            String email = editTextEmail.getText().toString().trim();
+            String emailPattern = getString(R.string.pattern);
+            viewModel.attemptLogin(email, emailPattern);
+        });
     }
 }

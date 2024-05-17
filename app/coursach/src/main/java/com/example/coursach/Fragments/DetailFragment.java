@@ -1,10 +1,6 @@
 package com.example.coursach.Fragments;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,46 +8,30 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.coursach.Adapter.ImageListAdapter;
 import com.example.coursach.Domain.FilmItem;
 import com.example.coursach.R;
+import com.example.coursach.Utils.FavoritesUtil;
+import com.example.coursach.Viewmodels.DetailViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 
-
-
-public class DetailFragment extends Fragment {
+public class DetailFragment extends BaseFragment {
 
     private ProgressBar progressBar;
     private TextView titleTxt, movieRateTxt, movieTimeTxt, movieDateTxt, movieSummaryInfo, movieActorsInfo;
-    private NestedScrollView scrollView;
-    private int idFilm;
     private ShapeableImageView pic1;
     private ImageView pic2, favoriteImg;
     private RecyclerView recyclerView;
-    private FilmItem currentFilm;
+    private DetailViewModel detailViewModel;
+    private int idFilm;
 
     @Nullable
     @Override
@@ -62,46 +42,17 @@ public class DetailFragment extends Fragment {
             idFilm = getArguments().getInt("id", 0);
         }
 
+        detailViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
         initView(view);
-        sendRequest();
-
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.detailFragment), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        observeViewModel();
+        detailViewModel.fetchFilm(idFilm);
 
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        favoriteImg.setOnClickListener(v -> toggleFavorite(currentFilm));
-        checkFavoriteStatus();
-    }
-
-    private void showCustomSnackbar(String message) {
-        Snackbar snackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_LONG);
-        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-        @SuppressLint("InflateParams") View customView = inflater.inflate(R.layout.custom_snackbar, null);
-
-        TextView textView = customView.findViewById(R.id.snackbar_text);
-        textView.setText(message);
-
-        layout.setPadding(0, 0, 0, 0);
-        layout.addView(customView, 0);
-
-        snackbar.show();
     }
 
     private void initView(View view) {
         titleTxt = view.findViewById(R.id.movieNameTxt);
         progressBar = view.findViewById(R.id.detailLoading);
-        scrollView = view.findViewById(R.id.ScrollViewDetail);
         pic1 = view.findViewById(R.id.posterNormalImg);
         pic2 = view.findViewById(R.id.posterBigImg);
         movieRateTxt = view.findViewById(R.id.movieRateTxt);
@@ -115,104 +66,50 @@ public class DetailFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         backImg.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-    }
 
-    private void toggleFavorite(FilmItem film) {
-        if (film == null) {
-            showCustomSnackbar(String.valueOf(R.string.infounav));
-            return;
-        }
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            Log.d("Authentication", "Пользователь не аутентифицирован.");
-            return;
-        }
-
-        String userId = user.getUid();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance(getResources().getString(R.string.url)).getReference().child("users").child(userId).child("favorites").child(String.valueOf(film.getId()));
-        SharedPreferences prefs = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE);
-        boolean isCurrentlyFavorite = prefs.getBoolean("Film_" + film.getId(), false);
-
-        if (isCurrentlyFavorite) {
-            mDatabase.removeValue().addOnSuccessListener(aVoid -> {
-                showCustomSnackbar(String.valueOf(R.string.delfav));
-                saveFavoriteStatus(film.getId(), false);
-                updateFavoriteButtonBackground(false);
-            }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.errdelfav)));
-        } else {
-            mDatabase.setValue(film).addOnSuccessListener(aVoid -> {
-                showCustomSnackbar(String.valueOf(R.string.addfav));
-                saveFavoriteStatus(film.getId(), true);
-                updateFavoriteButtonBackground(true);
-            }).addOnFailureListener(e -> showCustomSnackbar(String.valueOf(R.string.erraddfav)));
-        }
-    }
-
-
-    private void saveFavoriteStatus(int filmId, boolean isFavorite) {
-        SharedPreferences prefs = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("Film_" + filmId, isFavorite);
-        editor.apply();
-    }
-
-
-    private void updateFavoriteButtonBackground(boolean isFavorite) {
-        if (isFavorite) {
-            favoriteImg.setBackgroundResource(R.drawable.bg_circle_pink);
-        } else {
-            favoriteImg.setBackgroundResource(R.drawable.bg_cirlcle_dark);
-        }
-    }
-
-    private void checkFavoriteStatus() {
-        SharedPreferences prefs = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE);
-        boolean isFavorite = prefs.getBoolean("Film_" + idFilm, false);
-        updateFavoriteButtonBackground(isFavorite);
-    }
-
-    private void sendRequest() {
-        RequestQueue mRequestQueue = Volley.newRequestQueue(requireContext());
-        progressBar.setVisibility(View.VISIBLE);
-        scrollView.setVisibility(View.GONE);
-
-        StringRequest mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies/" + idFilm, response -> {
-
-            Gson gson = new Gson();
-            progressBar.setVisibility(View.GONE);
-            scrollView.setVisibility(View.VISIBLE);
-
-            currentFilm = gson.fromJson(response, FilmItem.class);
-
+        favoriteImg.setOnClickListener(v -> {
+            FilmItem currentFilm = detailViewModel.currentFilm.getValue();
             if (currentFilm != null) {
-                Glide.with(this)
-                        .load(currentFilm.getPoster())
-                        .into(pic1);
-
-                Glide.with(this)
-                        .load(currentFilm.getPoster())
-                        .into(pic2);
-
-                titleTxt.setText(currentFilm.getTitle());
-                movieRateTxt.setText(currentFilm.getImdbRating());
-                movieTimeTxt.setText(currentFilm.getRuntime());
-                movieDateTxt.setText(currentFilm.getReleased());
-                movieSummaryInfo.setText(currentFilm.getPlot());
-                movieActorsInfo.setText(currentFilm.getActors());
-
-                if (currentFilm.getImages() != null) {
-                    ImageListAdapter adapterImgList = new ImageListAdapter(currentFilm.getImages());
-                    recyclerView.setAdapter(adapterImgList);
-                }
-            } else {
-                showCustomSnackbar(String.valueOf(R.string.errloadinfo));
+                FavoritesUtil.toggleFavorite(requireContext(), currentFilm, favoriteImg, this);
             }
-        }, error -> {
-            progressBar.setVisibility(View.GONE);
-            showCustomSnackbar(String.valueOf(R.string.errextrinfo));
         });
+    }
 
-        mRequestQueue.add(mStringRequest);
+    private void observeViewModel() {
+        detailViewModel.currentFilm.observe(getViewLifecycleOwner(), this::updateUI);
+        detailViewModel.isLoading.observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void updateUI(FilmItem filmItem) {
+        if (filmItem != null) {
+            Glide.with(this)
+                    .load(filmItem.getPoster())
+                    .into(pic1);
+
+            Glide.with(this)
+                    .load(filmItem.getPoster())
+                    .into(pic2);
+
+            titleTxt.setText(filmItem.getTitle());
+            movieRateTxt.setText(filmItem.getImdbRating());
+            movieTimeTxt.setText(filmItem.getRuntime());
+            movieDateTxt.setText(filmItem.getReleased());
+            movieSummaryInfo.setText(filmItem.getPlot());
+            movieActorsInfo.setText(filmItem.getActors());
+
+            if (filmItem.getImages() != null) {
+                ImageListAdapter adapterImgList = new ImageListAdapter(filmItem.getImages());
+                recyclerView.setAdapter(adapterImgList);
+            }
+
+            boolean isFavorite = FavoritesUtil.checkFavoriteStatus(requireContext(), filmItem.getId());
+            FavoritesUtil.updateFavoriteButtonBackground(favoriteImg, isFavorite);
+        }
     }
 }
