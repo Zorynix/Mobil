@@ -56,10 +56,10 @@ public class MainFragment extends Fragment {
         fab.setOnClickListener(v -> navController.navigate(R.id.mainFragment));
 
         ImageView liked = view.findViewById(R.id.liked);
-        liked.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
+        liked.setOnClickListener(v -> navController.navigate(R.id.descriptionFragment));
 
         ImageView seen = view.findViewById(R.id.seen);
-        seen.setOnClickListener(v -> navController.navigate(R.id.descriptionFragment));
+        seen.setOnClickListener(v -> navController.navigate(R.id.likedFragment));
     }
 
     @Override
